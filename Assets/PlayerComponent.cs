@@ -18,6 +18,9 @@ public class PlayerComponent : MonoBehaviour
     private string password;
     [SerializeField]
     private string channelName;
+    public Rigidbody2D player;
+    [SerializeField]
+    private int speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,10 +51,40 @@ public class PlayerComponent : MonoBehaviour
     private void ReadChat() {
         if(twitchClient.Available > 0)
         {
-            var message = reader.ReadLine();
-            print(message);
+            string message = reader.ReadLine();
+            //:induslion!induslion@induslion.tmi.twitch.tv PRIVMSG #induslion :hello
+            if (message.Contains("PRIVMSG")) {
+                int splitPoint = message.IndexOf("!", 1);
+                string chatName = message.Substring(0, splitPoint);
+                chatName = chatName.Substring(1);
+
+                splitPoint = message.IndexOf(":", 1);
+                message = message.Substring(splitPoint+1);
+                print(String.Format("{0} : {1}", chatName, message));
+                GameInputs(message);
+
+            }
             // parse message and do equality check for left, right, up, down
             // if statements for each move leading to actual playermovement
+        }
+    }
+
+    private void GameInputs(string chatInput) {
+        print(chatInput);
+        if (chatInput.ToLower() == "left") {
+            player.MovePosition(player.position + new Vector2(-1,0) * speed * Time.deltaTime);
+        }
+
+        if (chatInput.ToLower() == "right") {
+            player.MovePosition(player.position + new Vector2(1,0) * speed * Time.deltaTime);
+        }
+
+        if (chatInput.ToLower() == "up") {
+            player.MovePosition(player.position + new Vector2(0,1) * speed * Time.deltaTime);
+        }
+
+        if (chatInput.ToLower() == "down") {
+            player.MovePosition(player.position + new Vector2(0,-1) * speed * Time.deltaTime);
         }
     }
 }
