@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: induslion
-  password: oauth:6mco5q185klfs0y3xgim9g0aoh2hd9
+  password: 
   channelName: induslion
   player: {fileID: 975517502}
   speed: 20
