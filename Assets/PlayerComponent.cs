@@ -11,7 +11,13 @@ public class PlayerComponent : MonoBehaviour
     private TcpClient twitchClient;
     private StreamReader reader;
     private StreamWriter writer;
-    public string username, password, channelName;
+    
+    [SerializeField]
+    private string username;
+    [SerializeField]
+    private string password;
+    [SerializeField]
+    private string channelName;
     // Start is called before the first frame update
     void Start()
     {
