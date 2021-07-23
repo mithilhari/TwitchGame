@@ -41,7 +41,8 @@ public class PlayerComponent : MonoBehaviour
         twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
         reader = new StreamReader(twitchClient.GetStream());
         writer = new StreamWriter(twitchClient.GetStream());
-
+        print(password);
+        print(username);
         writer.WriteLine("PASS " + password);
         writer.WriteLine("NICK " + username);
         // writer.WriteLine("USER " + username + " 8 * :" + username);
@@ -52,7 +53,8 @@ public class PlayerComponent : MonoBehaviour
         if(twitchClient.Available > 0)
         {
             string message = reader.ReadLine();
-            //:induslion!induslion@induslion.tmi.twitch.tv PRIVMSG #induslion :hello
+            print(message);
+
             if (message.Contains("PRIVMSG")) {
                 int splitPoint = message.IndexOf("!", 1);
                 string chatName = message.Substring(0, splitPoint);
